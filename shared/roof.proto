@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package roof;
+option go_package = "internal/proto/roof";
+
+service RoofServiceProcedures {
+    rpc Ping(PingMessage) returns (PingMessage) {}
+    rpc PerformAnalysis(PerformAnalysisRequest) returns (PerformAnalysisResponse) {}
+    rpc RetrieveAnalysis(RetrieveAnalysisRequest) returns (RetrieveAnalysisResponse) {}
+}
+
+message PerformAnalysisRequest {
+    bytes cmap = 1; // image
+    bytes emap = 2; // elevation map
+}
+
+message PerformAnalysisResponse {
+    string id = 1; // roof id
+}
+
+message RetrieveAnalysisRequest {
+    string id = 1; // roof id
+}
+
+message RetrieveAnalysisResponse {
+    bytes cmap = 1; // image
+    bytes msmap = 2; // final mask
+}
+
+message Polygon {
+    repeated Point2D points = 1;
+}
+
+message Point2D {
+    float x = 1;
+    float y = 2;
+}
+
+message PingMessage {
+    string message = 1;
+}
